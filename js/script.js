@@ -244,38 +244,56 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="modal-body">
                         <h3>Booking Summary</h3>
                         <div class="booking-summary">
-                            <div class="summary-item">
-                                <span>Room Type:</span>
-                                <span id="summary-room"></span>
+                            <div class="summary-section">
+                                <h4><i class="fas fa-calendar-alt"></i> Stay Information</h4>
+                                <div class="summary-item">
+                                    <span>Room Type:</span>
+                                    <span id="summary-room" class="summary-value"></span>
+                                </div>
+                                <div class="summary-dates">
+                                    <div class="date-item">
+                                        <i class="fas fa-calendar-check"></i>
+                                        <div>
+                                            <span class="date-label">Check-in</span>
+                                            <span id="summary-checkin" class="date-value"></span>
+                                        </div>
+                                    </div>
+                                    <div class="date-arrow">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </div>
+                                    <div class="date-item">
+                                        <i class="fas fa-calendar-times"></i>
+                                        <div>
+                                            <span class="date-label">Check-out</span>
+                                            <span id="summary-checkout" class="date-value"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="summary-item">
+                                    <span><i class="fas fa-user-friends"></i> Guests:</span>
+                                    <span id="summary-guests" class="summary-value"></span>
+                                </div>
                             </div>
-                            <div class="summary-item">
-                                <span>Check-in:</span>
-                                <span id="summary-checkin"></span>
-                            </div>
-                            <div class="summary-item">
-                                <span>Check-out:</span>
-                                <span id="summary-checkout"></span>
-                            </div>
-                            <div class="summary-item">
-                                <span>Guests:</span>
-                                <span id="summary-guests"></span>
-                            </div>
-                            <div class="summary-item">
-                                <span>Name:</span>
-                                <span id="summary-name"></span>
-                            </div>
-                            <div class="summary-item">
-                                <span>Email:</span>
-                                <span id="summary-email"></span>
-                            </div>
-                            <div class="summary-item">
-                                <span>Phone:</span>
-                                <span id="summary-phone"></span>
+                            
+                            <div class="summary-section">
+                                <h4><i class="fas fa-user"></i> Guest Information</h4>
+                                <div class="summary-item">
+                                    <span><i class="fas fa-user-circle"></i> Name:</span>
+                                    <span id="summary-name" class="summary-value"></span>
+                                </div>
+                                <div class="summary-item">
+                                    <span><i class="fas fa-envelope"></i> Email:</span>
+                                    <span id="summary-email" class="summary-value"></span>
+                                </div>
+                                <div class="summary-item">
+                                    <span><i class="fas fa-phone"></i> Phone:</span>
+                                    <span id="summary-phone" class="summary-value"></span>
+                                </div>
                             </div>
                         </div>
-                        <div class="total-price">
-                            <span>Total Price:</span>
-                            <span id="summary-price">$0</span>
+                        <div class="total-price-card">
+                            <div class="price-label">Total Price:</div>
+                            <div id="summary-price" class="price-value">$0</div>
                         </div>
                     </div>
                     <div class="modal-footer">
