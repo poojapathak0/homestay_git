@@ -1,0 +1,955 @@
+/* Admin Panel Styles */
+:root {
+    --admin-primary: #4a6fa5;
+    --admin-secondary: #6c757d;
+    --admin-success: #3ab665;
+    --admin-info: #17a2b8;
+    --admin-warning: #ffc107;
+    --admin-danger: #dc3545;
+    --admin-light: #f8f9fa;
+    --admin-dark: #343a40;
+    --admin-sidebar-width: 250px;
+    --admin-header-height: 60px;
+    --admin-border-radius: 8px;
+    --admin-transition: all 0.3s ease;
+    --admin-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.admin-body {
+    background-color: #f5f7fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+/* Sidebar Styles */
+.admin-sidebar {
+    width: var(--admin-sidebar-width);
+    background-color: #ffffff;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    transition: var(--admin-transition);
+    z-index: 100;
+}
+
+.admin-logo {
+    padding: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.admin-logo h2 {
+    margin: 0;
+    color: var(--admin-primary);
+    font-size: 1.5rem;
+}
+
+.admin-logo p {
+    margin: 5px 0 0;
+    color: var(--admin-secondary);
+    font-size: 0.85rem;
+}
+
+.admin-nav {
+    flex-grow: 1;
+    padding: 20px 0;
+}
+
+.admin-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.admin-nav li {
+    position: relative;
+}
+
+.admin-nav li.active {
+    background-color: rgba(74, 111, 165, 0.1);
+}
+
+.admin-nav li.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background-color: var(--admin-primary);
+}
+
+.admin-nav a {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    color: var(--admin-dark);
+    text-decoration: none;
+    transition: var(--admin-transition);
+}
+
+.admin-nav a:hover {
+    background-color: rgba(74, 111, 165, 0.05);
+}
+
+.admin-nav i {
+    margin-right: 15px;
+    width: 20px;
+    text-align: center;
+    color: var(--admin-primary);
+}
+
+.admin-logout {
+    padding: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.admin-logout a {
+    display: flex;
+    align-items: center;
+    color: var(--admin-secondary);
+    text-decoration: none;
+    transition: var(--admin-transition);
+}
+
+.admin-logout a:hover {
+    color: var(--admin-danger);
+}
+
+.admin-logout i {
+    margin-right: 10px;
+}
+
+/* Main Content Area */
+.admin-main {
+    flex-grow: 1;
+    margin-left: var(--admin-sidebar-width);
+    transition: var(--admin-transition);
+}
+
+.admin-header {
+    background-color: #ffffff;
+    height: var(--admin-header-height);
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 99;
+}
+
+.admin-search {
+    display: flex;
+    align-items: center;
+}
+
+.admin-search input {
+    border: none;
+    border-radius: 20px;
+    padding: 10px 15px;
+    background-color: #f5f7fa;
+    width: 300px;
+    transition: var(--admin-transition);
+}
+
+.admin-search input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(74, 111, 165, 0.2);
+}
+
+.admin-search button {
+    background: none;
+    border: none;
+    color: var(--admin-secondary);
+    cursor: pointer;
+    margin-left: -40px;
+}
+
+.admin-user {
+    display: flex;
+    align-items: center;
+}
+
+.notifications {
+    position: relative;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.notifications i {
+    font-size: 1.2rem;
+    color: var(--admin-secondary);
+}
+
+.notification-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: var(--admin-danger);
+    color: white;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-profile {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.admin-profile img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.admin-content {
+    padding: 30px;
+    max-width: 1800px;
+    margin: 0 auto;
+}
+
+.date-display {
+    color: var(--admin-secondary);
+    margin-top: -10px;
+    margin-bottom: 30px;
+}
+
+/* Dashboard Cards and Statistics */
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background-color: #ffffff;
+    border-radius: var(--admin-border-radius);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    box-shadow: var(--admin-box-shadow);
+    transition: var(--admin-transition);
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.stat-icon {
+    background-color: rgba(74, 111, 165, 0.1);
+    color: var(--admin-primary);
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+}
+
+.stat-icon i {
+    font-size: 1.8rem;
+}
+
+.stat-info {
+    flex-grow: 1;
+}
+
+.stat-info h3 {
+    margin: 0 0 5px;
+    font-size: 0.9rem;
+    color: var(--admin-secondary);
+    font-weight: 500;
+}
+
+.stat-value {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--admin-dark);
+}
+
+.stat-compare {
+    margin: 5px 0 0;
+    font-size: 0.8rem;
+    color: var(--admin-success);
+    display: flex;
+    align-items: center;
+}
+
+.stat-compare i {
+    margin-right: 5px;
+}
+
+/* Dashboard Sections */
+.dashboard-sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.dashboard-section {
+    background-color: #ffffff;
+    border-radius: var(--admin-border-radius);
+    padding: 20px;
+    box-shadow: var(--admin-box-shadow);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-header h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--admin-dark);
+}
+
+.view-all {
+    color: var(--admin-primary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: var(--admin-transition);
+}
+
+.view-all:hover {
+    text-decoration: underline;
+}
+
+/* Recent Bookings */
+.admin-bookings-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.booking-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    transition: var(--admin-transition);
+}
+
+.booking-item:last-child {
+    border-bottom: none;
+}
+
+.booking-item:hover {
+    background-color: rgba(74, 111, 165, 0.05);
+}
+
+.booking-details {
+    flex-grow: 1;
+}
+
+.booking-details h3 {
+    margin: 0 0 5px;
+    font-size: 1.1rem;
+    color: var(--admin-dark);
+}
+
+.booking-details p {
+    margin: 0 0 5px;
+    font-size: 0.9rem;
+    color: var(--admin-secondary);
+}
+
+.booking-dates, .booking-room {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.booking-dates span, .booking-room span {
+    display: flex;
+    align-items: center;
+    font-size: 0.85rem;
+}
+
+.booking-dates i, .booking-room i {
+    margin-right: 5px;
+    color: var(--admin-primary);
+}
+
+.booking-actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.booking-status {
+    font-size: 0.85rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+
+.status-confirmed {
+    background-color: rgba(58, 182, 101, 0.1);
+    color: var(--admin-success);
+}
+
+.status-active {
+    background-color: rgba(23, 162, 184, 0.1);
+    color: var(--admin-info);
+}
+
+.status-completed {
+    background-color: rgba(108, 117, 125, 0.1);
+    color: var(--admin-secondary);
+}
+
+.status-cancelled {
+    background-color: rgba(220, 53, 69, 0.1);
+    color: var(--admin-danger);
+}
+
+.booking-buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.btn-edit, .btn-delete {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--admin-transition);
+}
+
+.btn-edit {
+    background-color: rgba(74, 111, 165, 0.1);
+    color: var(--admin-primary);
+}
+
+.btn-delete {
+    background-color: rgba(220, 53, 69, 0.1);
+    color: var(--admin-danger);
+}
+
+.btn-edit:hover {
+    background-color: var(--admin-primary);
+    color: white;
+}
+
+.btn-delete:hover {
+    background-color: var(--admin-danger);
+    color: white;
+}
+
+/* Room Availability */
+.room-availability-widget {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.room-availability-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.room-name {
+    font-weight: 500;
+    color: var(--admin-dark);
+}
+
+.availability-bar {
+    height: 10px;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.availability-progress {
+    height: 100%;
+    background-color: var(--admin-success);
+    border-radius: 5px;
+    transition: var(--admin-transition);
+}
+
+.availability-details {
+    font-size: 0.85rem;
+    color: var(--admin-secondary);
+}
+
+.rooms-available {
+    font-weight: 600;
+    color: var(--admin-dark);
+}
+
+/* Today's Check-ins */
+.checkins-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.checkin-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.02);
+    border-radius: var(--admin-border-radius);
+    transition: var(--admin-transition);
+}
+
+.checkin-item:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+.checkin-status {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.checkin-status.pending {
+    background-color: var(--admin-warning);
+}
+
+.checkin-status.checked-in {
+    background-color: var(--admin-success);
+}
+
+.checkin-info {
+    flex-grow: 1;
+}
+
+.checkin-info h3 {
+    margin: 0 0 5px;
+    font-size: 1rem;
+}
+
+.checkin-info p {
+    margin: 0 0 5px;
+    font-size: 0.85rem;
+    color: var(--admin-secondary);
+}
+
+.checkin-actions {
+    margin-left: 15px;
+}
+
+.btn-small {
+    font-size: 0.85rem;
+    padding: 6px 12px;
+}
+
+/* Messages */
+.messages-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+.message-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.02);
+    border-radius: var(--admin-border-radius);
+    transition: var(--admin-transition);
+}
+
+.message-item.unread {
+    background-color: rgba(74, 111, 165, 0.05);
+    border-left: 3px solid var(--admin-primary);
+}
+
+.message-item:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+.message-sender {
+    margin-right: 15px;
+}
+
+.message-sender img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.message-content {
+    flex-grow: 1;
+}
+
+.message-content h3 {
+    margin: 0 0 5px;
+    font-size: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.message-time {
+    font-size: 0.75rem;
+    font-weight: normal;
+    color: var(--admin-secondary);
+}
+
+.message-content p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--admin-dark);
+}
+
+/* Calendar */
+.calendar-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.calendar-controls button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--admin-transition);
+    background-color: rgba(74, 111, 165, 0.1);
+    color: var(--admin-primary);
+}
+
+.calendar-controls button:hover {
+    background-color: var(--admin-primary);
+    color: white;
+}
+
+.calendar-controls h3 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.bookings-calendar {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+}
+
+.calendar-day {
+    background-color: #f5f7fa;
+    border-radius: 5px;
+    padding: 10px;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: var(--admin-transition);
+}
+
+.calendar-day-header {
+    font-weight: 500;
+    margin-bottom: 5px;
+    font-size: 0.85rem;
+}
+
+.calendar-day.has-bookings {
+    background-color: rgba(74, 111, 165, 0.1);
+}
+
+.calendar-day.today {
+    border: 2px solid var(--admin-primary);
+}
+
+.calendar-booking {
+    font-size: 0.75rem;
+    padding: 3px 5px;
+    border-radius: 3px;
+    margin-bottom: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    background-color: var(--admin-primary);
+    color: white;
+}
+
+.calendar-booking.check-in {
+    background-color: var(--admin-success);
+}
+
+.calendar-booking.check-out {
+    background-color: var(--admin-info);
+}
+
+/* Quick Actions */
+.quick-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.quick-action-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #f5f7fa;
+    border-radius: var(--admin-border-radius);
+    text-decoration: none;
+    color: var(--admin-dark);
+    transition: var(--admin-transition);
+}
+
+.quick-action-card:hover {
+    background-color: var(--admin-primary);
+    color: white;
+    transform: translateY(-5px);
+}
+
+.quick-action-card i {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+/* Modals */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal.show {
+    opacity: 1;
+    display: flex;
+}
+
+.modal-content {
+    background-color: white;
+    border-radius: var(--admin-border-radius);
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    padding: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-title {
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--admin-secondary);
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-footer {
+    padding: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* Forms */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--admin-primary);
+    box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.2);
+}
+
+.form-group input.error,
+.form-group select.error,
+.form-group textarea.error {
+    border-color: var(--admin-danger);
+}
+
+/* Buttons */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: var(--admin-transition);
+}
+
+.btn-primary {
+    background-color: var(--admin-primary);
+    color: white;
+}
+
+.btn-secondary {
+    background-color: var(--admin-secondary);
+    color: white;
+}
+
+.btn-success {
+    background-color: var(--admin-success);
+    color: white;
+}
+
+.btn-danger {
+    background-color: var(--admin-danger);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #3b5a8a;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.btn-success:hover {
+    background-color: #2f9651;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+    .dashboard-sections {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 992px) {
+    .admin-sidebar {
+        width: 60px;
+    }
+
+    .admin-sidebar:hover {
+        width: var(--admin-sidebar-width);
+    }
+
+    .admin-logo h2,
+    .admin-logo p,
+    .admin-nav a span,
+    .admin-logout a span {
+        display: none;
+    }
+
+    .admin-sidebar:hover .admin-logo h2,
+    .admin-sidebar:hover .admin-logo p,
+    .admin-sidebar:hover .admin-nav a span,
+    .admin-sidebar:hover .admin-logout a span {
+        display: inline;
+    }
+
+    .admin-main {
+        margin-left: 60px;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-search input {
+        width: 200px;
+    }
+
+    .dashboard-stats {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}
+
+@media (max-width: 576px) {
+    .admin-search {
+        display: none;
+    }
+
+    .admin-content {
+        padding: 20px 15px;
+    }
+
+    .dashboard-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-card {
+        padding: 15px;
+    }
+}

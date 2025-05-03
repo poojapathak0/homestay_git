@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Messages - Cozy Homestay</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Message System Styles */
+        .messages-container {
+            max-width: 900px;
+            margin: 50px auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+        
+        .messages-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .messages-header h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+        
+        .messages-tabs {
+            display: flex;
+            background-color: var(--light-color);
+            border-bottom: 1px solid #eee;
+        }
+        
+        .messages-tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            font-weight: 500;
+        }
+        
+        .messages-tab:hover {
+            background-color: rgba(0,0,0,0.05);
+        }
+        
+        .messages-tab.active {
+            background-color: white;
+        }
+        
+        .messages-tab.active:after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+        
+        .message-count {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 24px;
+            height: 24px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            font-size: 12px;
+            margin-left: 8px;
+        }
+        
+        .messages-content {
+            padding: 20px;
+            min-height: 400px;
+        }
+        
+        .message-list {
+            display: none;
+        }
+        
+        .message-list.active {
+            display: block;
+        }
+        
+        .login-form {
+            max-width: 400px;
+            margin: 40px auto;
+            text-align: center;
+        }
+        
+        .no-messages {
+            text-align: center;
+            padding: 50px 20px;
+            color: #888;
+        }
+        
+        .no-messages i {
+            font-size: 50px;
+            margin-bottom: 20px;
+            color: #ddd;
+        }
+        
+        .message-item {
+            margin-bottom: 25px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .message-item:hover {
+            transform: translateY(-3px);
+        }
+        
+        .message-header {
+            padding: 15px 20px;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .message-subject {
+            font-weight: 600;
+            font-size: 16px;
+            margin: 0;
+            color: var(--dark-color);
+        }
+        
+        .message-date {
+            color: #888;
+            font-size: 14px;
+        }
+        
+        .message-body {
+            padding: 20px;
+            background-color: white;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .message-from {
+            margin-bottom: 10px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .message-from span {
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+        
+        .message-text {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .message-responses {
+            background-color: #f9f9f9;
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .message-item.expanded .message-responses {
+            padding: 20px;
+            max-height: 500px;
+        }
+        
+        .response-item {
+            border-left: 3px solid var(--primary-color);
+            padding: 10px 15px;
+            margin-bottom: 15px;
+            background-color: white;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .response-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .response-from {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .response-date {
+            color: #888;
+        }
+        
+        .response-text {
+            line-height: 1.5;
+        }
+        
+        .message-footer {
+            display: flex;
+            padding: 15px 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .message-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .message-btn {
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            background-color: #eee;
+            color: #666;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .message-btn i {
+            margin-right: 6px;
+        }
+        
+        .message-btn:hover {
+            background-color: #ddd;
+        }
+        
+        .message-btn.reply {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .message-btn.reply:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .reply-form {
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-top: 1px solid #eee;
+            display: none;
+        }
+        
+        .reply-form.active {
+            display: block;
+        }
+        
+        .reply-form textarea {
+            width: 100%;
+            height: 120px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-family: inherit;
+            resize: vertical;
+        }
+        
+        .reply-form textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(92, 141, 137, 0.2);
+        }
+        
+        .reply-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .messages-tab {
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+            
+            .message-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .message-date {
+                margin-top: 5px;
+            }
+            
+            .message-footer {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Cozy Homestay</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="rooms.html">Rooms</a></li>
+                    <li><a href="amenities.html">Amenities</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="messages.html" class="active">Messages</a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h2>My Messages</h2>
+            <p>View and respond to messages between you and Cozy Homestay</p>
+        </div>
+    </section>
+
+    <section class="messages-section">
+        <div class="container">
+            <div class="messages-container">
+                <div class="messages-header">
+                    <h2>Message Center</h2>
+                    <div class="view-toggle">
+                        <button id="userViewBtn" class="btn btn-secondary active">Guest View</button>
+                        <button id="ownerViewBtn" class="btn btn-secondary">Owner View</button>
+                    </div>
+                </div>
+                
+                <div id="userView">
+                    <div class="messages-tabs">
+                        <div class="messages-tab active" data-tab="inbox">Inbox <span class="message-count" id="user-inbox-count">0</span></div>
+                        <div class="messages-tab" data-tab="sent">Sent <span class="message-count" id="user-sent-count">0</span></div>
+                    </div>
+                    
+                    <div class="messages-content">
+                        <div class="message-list active" id="user-inbox">
+                            <div id="user-login-area">
+                                <div class="login-form">
+                                    <h3>Enter your email to view your messages</h3>
+                                    <p>Please enter the email address you used when contacting us</p>
+                                    <div class="form-group">
+                                        <input type="email" id="userEmail" placeholder="Your email address" class="input-animate">
+                                        <span class="input-focus-effect"></span>
+                                    </div>
+                                    <button id="userLoginBtn" class="btn">View My Messages</button>
+                                </div>
+                            </div>
+                            <div id="user-messages-area" style="display: none;">
+                                <div id="user-inbox-messages"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="message-list" id="user-sent">
+                            <div id="user-sent-messages"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="ownerView" style="display: none;">
+                    <div class="messages-tabs">
+                        <div class="messages-tab active" data-tab="inbox">New Messages <span class="message-count" id="owner-inbox-count">0</span></div>
+                        <div class="messages-tab" data-tab="replied">Replied <span class="message-count" id="owner-replied-count">0</span></div>
+                    </div>
+                    
+                    <div class="messages-content">
+                        <div class="message-list active" id="owner-inbox">
+                            <div id="owner-login-area">
+                                <div class="login-form">
+                                    <h3>Owner Login</h3>
+                                    <p>Enter the owner password to access messages</p>
+                                    <div class="form-group">
+                                        <input type="password" id="ownerPassword" placeholder="Owner password" class="input-animate">
+                                        <span class="input-focus-effect"></span>
+                                    </div>
+                                    <button id="ownerLoginBtn" class="btn">Login</button>
+                                    <p class="small-text">Hint: For demo purposes, use "owner123"</p>
+                                </div>
+                            </div>
+                            <div id="owner-messages-area" style="display: none;">
+                                <div id="owner-inbox-messages"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="message-list" id="owner-replied">
+                            <div id="owner-replied-messages"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Cozy Homestay</h3>
+                    <p>Your home away from home, offering authentic experiences and comfortable accommodations.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="rooms.html">Rooms</a></li>
+                        <li><a href="amenities.html">Amenities</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Homestay Street, City</p>
+                    <p><i class="fas fa-phone"></i> +1 234 567 8900</p>
+                    <p><i class="fas fa-envelope"></i> info@cozyhomestay.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-tripadvisor"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Cozy Homestay. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Message system initialization
+            const messageSystem = {
+                messages: [],
+                
+                init() {
+                    // Load messages from localStorage
+                    this.loadMessages();
+                    
+                    // Set up event listeners
+                    this.setupEventListeners();
+                    
+                    // Update message counts
+                    this.updateMessageCounts();
+                },
+                
+                loadMessages() {
+                    const storedMessages = localStorage.getItem('homestayMessages');
+                    this.messages = storedMessages ? JSON.parse(storedMessages) : [];
+                    
+                    // For demo purposes, add sample messages if none exist
+                    if (this.messages.length === 0) {
+                        this.addSampleMessages();
+                    }
+                },
+                
+                saveMessages() {
+                    localStorage.setItem('homestayMessages', JSON.stringify(this.messages));
+                },
+                
+                addSampleMessages() {
+                    const sampleMessages = [
+                        {
+                            id: 'msg_' + Date.now() + 1,
+                            subject: 'Booking Inquiry for Family Suite',
+                            from: 'john.doe@example.com',
+                            fromName: 'John Doe',
+                            message: 'Hello, I would like to book the Family Suite for July 15-20, 2025. We are a family of 4 with two children (ages 8 and 10). Do you provide airport transfers? Also, is there a swimming pool on the premises?',
+                            date: '2025-05-01T14:30:00',
+                            responses: [
+                                {
+                                    from: 'owner',
+                                    message: 'Hi John, thank you for your interest in our Family Suite. We would be happy to accommodate your family during those dates. Yes, we do provide airport transfers for an additional fee of $30 each way. We have a small swimming pool in the garden area that is perfect for children. Would you like me to reserve the suite for you?',
+                                    date: '2025-05-01T16:45:00'
+                                }
+                            ],
+                            read: true,
+                            replied: true
+                        },
+                        {
+                            id: 'msg_' + Date.now() + 2,
+                            subject: 'Special Dietary Requirements',
+                            from: 'sarah.smith@example.com',
+                            fromName: 'Sarah Smith',
+                            message: 'I will be staying at your homestay next week and I have some dietary restrictions. I am gluten-free and lactose intolerant. Will your breakfast options accommodate these requirements?',
+                            date: '2025-05-02T09:15:00',
+                            responses: [],
+                            read: false,
+                            replied: false
+                        }
+                    ];
+                    
+                    this.messages = sampleMessages;
+                    this.saveMessages();
+                },
+                
+                setupEventListeners() {
+                    // Tab switching
+                    document.querySelectorAll('.messages-tab').forEach(tab => {
+                        tab.addEventListener('click', (e) => {
+                            const tabContainer = e.target.closest('.messages-tabs');
+                            const tabView = tabContainer.nextElementSibling;
+                            
+                            // Remove active class from all tabs
+                            tabContainer.querySelectorAll('.messages-tab').forEach(t => {
+                                t.classList.remove('active');
+                            });
+                            
+                            // Remove active class from all tab content
+                            tabView.querySelectorAll('.message-list').forEach(content => {
+                                content.classList.remove('active');
+                            });
+                            
+                            // Add active class to clicked tab
+                            e.target.classList.add('active');
+                            
+                            // Show corresponding content
+                            const tabId = e.target.getAttribute('data-tab');
+                            const activeView = tabView.querySelector(`#${tabContainer.parentElement.id.replace('View', '')}-${tabId}`);
+                            if (activeView) {
+                                activeView.classList.add('active');
+                            }
+                        });
+                    });
+                    
+                    // View toggle (User/Owner)
+                    document.getElementById('userViewBtn').addEventListener('click', () => {
+                        document.getElementById('userViewBtn').classList.add('active');
+                        document.getElementById('ownerViewBtn').classList.remove('active');
+                        document.getElementById('userView').style.display = 'block';
+                        document.getElementById('ownerView').style.display = 'none';
+                    });
+                    
+                    document.getElementById('ownerViewBtn').addEventListener('click', () => {
+                        document.getElementById('ownerViewBtn').classList.add('active');
+                        document.getElementById('userViewBtn').classList.remove('active');
+                        document.getElementById('ownerView').style.display = 'block';
+                        document.getElementById('userView').style.display = 'none';
+                    });
+                    
+                    // User login
+                    document.getElementById('userLoginBtn').addEventListener('click', () => {
+                        const email = document.getElementById('userEmail').value.trim();
+                        if (email) {
+                            this.showUserMessages(email);
+                        } else {
+                            alert('Please enter your email address');
+                        }
+                    });
+                    
+                    // Owner login
+                    document.getElementById('ownerLoginBtn').addEventListener('click', () => {
+                        const password = document.getElementById('ownerPassword').value.trim();
+                        if (password === 'owner123') {
+                            this.showOwnerMessages();
+                        } else {
+                            alert('Incorrect password');
+                        }
+                    });
+                },
+                
+                updateMessageCounts() {
+                    // Count user messages (will be populated after login)
+                    document.getElementById('user-inbox-count').textContent = "0";
+                    document.getElementById('user-sent-count').textContent = "0";
+                    
+                    // Count owner messages
+                    const newMessages = this.messages.filter(msg => !msg.replied).length;
+                    const repliedMessages = this.messages.filter(msg => msg.replied).length;
+                    
+                    document.getElementById('owner-inbox-count').textContent = newMessages;
+                    document.getElementById('owner-replied-count').textContent = repliedMessages;
+                },
+                
+                showUserMessages(email) {
+                    // Filter messages by user email
+                    const userInboxMessages = this.messages.filter(msg => msg.from.toLowerCase() === email.toLowerCase());
+                    
+                    if (userInboxMessages.length === 0) {
+                        document.getElementById('user-inbox-messages').innerHTML = `
+                            <div class="no-messages">
+                                <i class="fas fa-envelope-open"></i>
+                                <h3>No messages found</h3>
+                                <p>We couldn't find any messages for ${email}</p>
+                                <p>If you've just sent a message, it may take a moment to appear.</p>
+                                <a href="contact.html" class="btn">Send a Message</a>
+                            </div>
+                        `;
+                    } else {
+                        let inboxHtml = '';
+                        
+                        userInboxMessages.forEach(msg => {
+                            let responsesHtml = '';
+                            
+                            if (msg.responses && msg.responses.length > 0) {
+                                msg.responses.forEach(response => {
+                                    const responseDate = new Date(response.date);
+                                    responsesHtml += `
+                                        <div class="response-item">
+                                            <div class="response-header">
+                                                <div class="response-from">Cozy Homestay Staff</div>
+                                                <div class="response-date">${responseDate.toLocaleString()}</div>
+                                            </div>
+                                            <div class="response-text">${response.message}</div>
+                                        </div>
+                                    `;
+                                });
+                            }
+                            
+                            const messageDate = new Date(msg.date);
+                            inboxHtml += `
+                                <div class="message-item" data-id="${msg.id}">
+                                    <div class="message-header">
+                                        <h3 class="message-subject">${msg.subject}</h3>
+                                        <div class="message-date">${messageDate.toLocaleString()}</div>
+                                    </div>
+                                    <div class="message-body">
+                                        <div class="message-from">From: <span>${msg.fromName || msg.from}</span></div>
+                                        <div class="message-text">${msg.message}</div>
+                                    </div>
+                                    ${msg.responses && msg.responses.length > 0 ? `
+                                        <div class="message-responses">
+                                            <h4>Responses:</h4>
+                                            ${responsesHtml}
+                                        </div>
+                                    ` : ''}
+                                    <div class="message-footer">
+                                        <div class="message-actions">
+                                            ${msg.responses && msg.responses.length > 0 ? `
+                                                <button class="message-btn toggle-responses">
+                                                    <i class="fas fa-comments"></i> View Responses (${msg.responses.length})
+                                                </button>
+                                            ` : `
+                                                <span class="awaiting-response">Awaiting response</span>
+                                            `}
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        
+                        document.getElementById('user-inbox-messages').innerHTML = inboxHtml;
+                        
+                        // Add event listeners for message interactions
+                        document.querySelectorAll('.toggle-responses').forEach(btn => {
+                            btn.addEventListener('click', (e) => {
+                                const messageItem = e.target.closest('.message-item');
+                                messageItem.classList.toggle('expanded');
+                                
+                                if (messageItem.classList.contains('expanded')) {
+                                    btn.innerHTML = '<i class="fas fa-comments"></i> Hide Responses';
+                                } else {
+                                    const responsesCount = messageItem.querySelectorAll('.response-item').length;
+                                    btn.innerHTML = `<i class="fas fa-comments"></i> View Responses (${responsesCount})`;
+                                }
+                            });
+                        });
+                        
+                        // Update counts
+                        document.getElementById('user-inbox-count').textContent = userInboxMessages.length;
+                        document.getElementById('user-sent-count').textContent = userInboxMessages.length;
+                    }
+                    
+                    // Show messages area
+                    document.getElementById('user-login-area').style.display = 'none';
+                    document.getElementById('user-messages-area').style.display = 'block';
+                    
+                    // Also populate sent messages (same as inbox for this demo)
+                    document.getElementById('user-sent-messages').innerHTML = document.getElementById('user-inbox-messages').innerHTML;
+                },
+                
+                showOwnerMessages() {
+                    // Display new messages (not replied)
+                    const newMessages = this.messages.filter(msg => !msg.replied);
+                    const repliedMessages = this.messages.filter(msg => msg.replied);
+                    
+                    if (newMessages.length === 0) {
+                        document.getElementById('owner-inbox-messages').innerHTML = `
+                            <div class="no-messages">
+                                <i class="fas fa-check-circle"></i>
+                                <h3>No new messages</h3>
+                                <p>You've responded to all messages.</p>
+                            </div>
+                        `;
+                    } else {
+                        let inboxHtml = '';
+                        
+                        newMessages.forEach(msg => {
+                            const messageDate = new Date(msg.date);
+                            inboxHtml += `
+                                <div class="message-item" data-id="${msg.id}">
+                                    <div class="message-header">
+                                        <h3 class="message-subject">${msg.subject}</h3>
+                                        <div class="message-date">${messageDate.toLocaleString()}</div>
+                                    </div>
+                                    <div class="message-body">
+                                        <div class="message-from">From: <span>${msg.fromName || msg.from}</span></div>
+                                        <div class="message-text">${msg.message}</div>
+                                    </div>
+                                    <div class="message-footer">
+                                        <div class="message-actions">
+                                            <button class="message-btn reply" data-id="${msg.id}">
+                                                <i class="fas fa-reply"></i> Reply
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="reply-form" id="reply-form-${msg.id}">
+                                        <textarea placeholder="Type your reply here..." id="reply-text-${msg.id}"></textarea>
+                                        <div class="reply-actions">
+                                            <button class="message-btn cancel-reply" data-id="${msg.id}">Cancel</button>
+                                            <button class="message-btn send-reply" data-id="${msg.id}">Send Reply</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        
+                        document.getElementById('owner-inbox-messages').innerHTML = inboxHtml;
+                        
+                        // Add event listeners for reply buttons
+                        document.querySelectorAll('.message-btn.reply').forEach(btn => {
+                            btn.addEventListener('click', (e) => {
+                                const messageId = e.target.getAttribute('data-id');
+                                document.getElementById(`reply-form-${messageId}`).classList.add('active');
+                            });
+                        });
+                        
+                        document.querySelectorAll('.cancel-reply').forEach(btn => {
+                            btn.addEventListener('click', (e) => {
+                                const messageId = e.target.getAttribute('data-id');
+                                document.getElementById(`reply-form-${messageId}`).classList.remove('active');
+                            });
+                        });
+                        
+                        document.querySelectorAll('.send-reply').forEach(btn => {
+                            btn.addEventListener('click', (e) => {
+                                const messageId = e.target.getAttribute('data-id');
+                                const replyText = document.getElementById(`reply-text-${messageId}`).value.trim();
+                                
+                                if (replyText) {
+                                    this.sendReply(messageId, replyText);
+                                } else {
+                                    alert('Please enter a reply');
+                                }
+                            });
+                        });
+                    }
+                    
+                    // Display replied messages
+                    if (repliedMessages.length === 0) {
+                        document.getElementById('owner-replied-messages').innerHTML = `
+                            <div class="no-messages">
+                                <i class="fas fa-envelope"></i>
+                                <h3>No replied messages</h3>
+                                <p>You haven't replied to any messages yet.</p>
+                            </div>
+                        `;
+                    } else {
+                        let repliedHtml = '';
+                        
+                        repliedMessages.forEach(msg => {
+                            let responsesHtml = '';
+                            
+                            if (msg.responses && msg.responses.length > 0) {
+                                msg.responses.forEach(response => {
+                                    const responseDate = new Date(response.date);
+                                    responsesHtml += `
+                                        <div class="response-item">
+                                            <div class="response-header">
+                                                <div class="response-from">You</div>
+                                                <div class="response-date">${responseDate.toLocaleString()}</div>
+                                            </div>
+                                            <div class="response-text">${response.message}</div>
+                                        </div>
+                                    `;
+                                });
+                            }
+                            
+                            const messageDate = new Date(msg.date);
+                            repliedHtml += `
+                                <div class="message-item expanded" data-id="${msg.id}">
+                                    <div class="message-header">
+                                        <h3 class="message-subject">${msg.subject}</h3>
+                                        <div class="message-date">${messageDate.toLocaleString()}</div>
+                                    </div>
+                                    <div class="message-body">
+                                        <div class="message-from">From: <span>${msg.fromName || msg.from}</span></div>
+                                        <div class="message-text">${msg.message}</div>
+                                    </div>
+                                    <div class="message-responses">
+                                        <h4>Your Responses:</h4>
+                                        ${responsesHtml}
+                                    </div>
+                                    <div class="message-footer">
+                                        <div class="message-actions">
+                                            <button class="message-btn reply" data-id="${msg.id}">
+                                                <i class="fas fa-reply"></i> Reply Again
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="reply-form" id="reply-form-${msg.id}">
+                                        <textarea placeholder="Type your reply here..." id="reply-text-${msg.id}"></textarea>
+                                        <div class="reply-actions">
+                                            <button class="message-btn cancel-reply" data-id="${msg.id}">Cancel</button>
+                                            <button class="message-btn send-reply" data-id="${msg.id}">Send Reply</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        
+                        document.getElementById('owner-replied-messages').innerHTML = repliedHtml;
+                        
+                        // Add event listeners for reply buttons
+                        document.querySelectorAll('.message-btn.reply').forEach(btn => {
+                            btn.addEventListener('click', (e) => {
+                                const messageId = e.target.getAttribute('data-id');
+                                document.getElementById(`reply-form-${messageId}`).classList.add('active');
+                            });
+                        });
+                        
+                        document.querySelectorAll('.cancel-reply').forEach(btn => {
+                            btn.addEventListener('click', (e) => {
+                                const messageId = e.target.getAttribute('data-id');
+                                document.getElementById(`reply-form-${messageId}`).classList.remove('active');
+                            });
+                        });
+                        
+                        document.querySelectorAll('.send-reply').forEach(btn => {
+                            btn.addEventListener('click', (e) => {
+                                const messageId = e.target.getAttribute('data-id');
+                                const replyText = document.getElementById(`reply-text-${messageId}`).value.trim();
+                                
+                                if (replyText) {
+                                    this.sendReply(messageId, replyText);
+                                } else {
+                                    alert('Please enter a reply');
+                                }
+                            });
+                        });
+                    }
+                    
+                    // Show owner messages area
+                    document.getElementById('owner-login-area').style.display = 'none';
+                    document.getElementById('owner-messages-area').style.display = 'block';
+                },
+                
+                sendReply(messageId, replyText) {
+                    // Find the message
+                    const msgIndex = this.messages.findIndex(msg => msg.id === messageId);
+                    
+                    if (msgIndex !== -1) {
+                        // Add the response
+                        if (!this.messages[msgIndex].responses) {
+                            this.messages[msgIndex].responses = [];
+                        }
+                        
+                        this.messages[msgIndex].responses.push({
+                            from: 'owner',
+                            message: replyText,
+                            date: new Date().toISOString()
+                        });
+                        
+                        // Mark as replied
+                        this.messages[msgIndex].replied = true;
+                        
+                        // Save messages
+                        this.saveMessages();
+                        
+                        // Refresh owner view
+                        this.showOwnerMessages();
+                        
+                        // Show success notification
+                        alert('Reply sent successfully!');
+                    }
+                }
+            };
+            
+            // Initialize message system
+            messageSystem.init();
+        });
+    </script>
+</body>
+</html>

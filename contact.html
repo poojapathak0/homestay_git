@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Cozy Homestay</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Cozy Homestay</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="rooms.html">Rooms</a></li>
+                    <li><a href="amenities.html">Amenities</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <p>We're here to help with your questions and booking requests</p>
+        </div>
+    </section>
+
+    <section class="contact-content">
+        <div class="container">
+            <div class="contact-columns">
+                <div class="contact-info">
+                    <h3>How to Reach Us</h3>
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Location</h4>
+                            <p>123 Homestay Street<br>City, State 12345<br>Country</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+1 234 567 8900<br>+1 234 567 8901</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@cozyhomestay.com<br>bookings@cozyhomestay.com</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="far fa-clock"></i>
+                        <div>
+                            <h4>Reception Hours</h4>
+                            <p>Monday - Sunday: 8:00 AM - 10:00 PM</p>
+                        </div>
+                    </div>
+
+                    <div class="social-contact">
+                        <h4>Connect With Us</h4>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-tripadvisor"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <h3>Send Us a Message</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Your Name <span class="required">*</span></label>
+                            <input type="text" id="name" name="name" required class="input-animate">
+                            <span class="input-focus-effect"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" required class="input-animate">
+                            <span class="input-focus-effect"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" class="input-animate">
+                            <span class="input-focus-effect"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject <span class="required">*</span></label>
+                            <select id="subject" name="subject" required class="input-animate">
+                                <option value="" disabled selected>Please select a subject</option>
+                                <option value="Booking Inquiry">Booking Inquiry</option>
+                                <option value="General Information">General Information</option>
+                                <option value="Special Requests">Special Requests</option>
+                                <option value="Feedback">Feedback</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <span class="input-focus-effect"></span>
+                        </div>
+                        <div class="form-group booking-dates">
+                            <div class="date-field">
+                                <label for="check_in">Check-in Date</label>
+                                <input type="date" id="check_in" name="check_in" class="input-animate">
+                                <span class="input-focus-effect"></span>
+                            </div>
+                            <div class="date-field">
+                                <label for="check_out">Check-out Date</label>
+                                <input type="date" id="check_out" name="check_out" class="input-animate">
+                                <span class="input-focus-effect"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="guests">Number of Guests</label>
+                            <input type="number" id="guests" name="guests" min="1" max="10" class="input-animate">
+                            <span class="input-focus-effect"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="room_type">Preferred Room Type</label>
+                            <select id="room_type" name="room_type" class="input-animate">
+                                <option value="" disabled selected>Select room type</option>
+                                <option value="Deluxe Room">Deluxe Room</option>
+                                <option value="Family Suite">Family Suite</option>
+                                <option value="Cozy Single">Cozy Single</option>
+                                <option value="Garden View Room">Garden View Room</option>
+                            </select>
+                            <span class="input-focus-effect"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Additional Information <span class="required">*</span></label>
+                            <textarea id="message" name="message" rows="5" required class="input-animate"></textarea>
+                            <span class="input-focus-effect"></span>
+                        </div>
+                        <div class="form-group privacy-consent">
+                            <input type="checkbox" id="privacy_consent" name="privacy_consent" required>
+                            <label for="privacy_consent">I consent to Cozy Homestay collecting and storing my data from this form. <span class="required">*</span></label>
+                        </div>
+                        <div class="form-status-message"></div>
+                        <button type="submit" class="btn">
+                            <span class="btn-text">Send Message</span>
+                            <span class="btn-icon"><i class="fas fa-paper-plane"></i></span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="map-section">
+        <div class="container">
+            <h3 class="section-title">Find Us Here</h3>
+            <div class="map-container">
+                <!-- Replace with actual Google Maps embed code -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12345.6789!2d-73.987!3d40.757!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zM8KwNDUnMjUuMiJOIDczwrA1OSczOC4yIlc!5e0!3m2!1sen!2sus!4v1620000000000!5m2!1sen!2sus" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="container">
+            <h3 class="section-title">Frequently Asked Questions</h3>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>What is your check-in and check-out time?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Check-in is from 2:00 PM to 8:00 PM. Check-out is before 11:00 AM. If you need a late check-in or early check-out, please contact us in advance to make arrangements.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Is breakfast included in the room rate?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we provide a complimentary homemade breakfast for all guests, served from 7:00 AM to 9:30 AM daily. If you have any dietary restrictions, please let us know in advance.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Do you offer airport transfers?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we can arrange airport transfers for an additional fee. Please provide your flight details at least 48 hours before your arrival so we can make the necessary arrangements.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Is your homestay family-friendly?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely! We welcome families with children of all ages. Our Family Suite is specially designed to accommodate families comfortably. We can provide baby cots and high chairs upon request.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Cozy Homestay</h3>
+                    <p>Your home away from home, offering authentic experiences and comfortable accommodations.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="rooms.html">Rooms</a></li>
+                        <li><a href="amenities.html">Amenities</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Homestay Street, City</p>
+                    <p><i class="fas fa-phone"></i> +1 234 567 8900</p>
+                    <p><i class="fas fa-envelope"></i> info@cozyhomestay.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-tripadvisor"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Cozy Homestay. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
